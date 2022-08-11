@@ -11,10 +11,10 @@ module "policy" {
   name        = local.name
   name_prefix = local.name_prefix
   role_name   = aws_iam_role.role.name
-  statements  = [
+  statements = [
     {
-      effect = "Allow"
-      actions = ["codepipeline:StartPipelineExecution"]
+      effect    = "Allow"
+      actions   = ["codepipeline:StartPipelineExecution"]
       resources = [var.pipeline_arn]
     }
   ]
@@ -44,5 +44,5 @@ resource "aws_cloudwatch_event_target" "trigger-pipeline" {
   target_id = "trigger-pipeline"
   arn       = var.pipeline_arn
   rule      = aws_cloudwatch_event_rule.ecr-push.name
-  role_arn = aws_iam_role.role.arn
+  role_arn  = aws_iam_role.role.arn
 }

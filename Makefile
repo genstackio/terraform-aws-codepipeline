@@ -6,6 +6,9 @@ all: install
 build-modules: install-root
 	@$(foreach m,$(makeable_modules),make -C modules/$(m)/ build;)
 
+format:
+	@terraform fmt -recursive
+
 generate:
 	@yarn --silent genjs
 
@@ -30,6 +33,7 @@ test-modules: install-root
 
 .PHONY: all \
 		build-modules \
+		format \
 		generate \
 		install install-modules install-root \
 		module-build module-install module-test \
