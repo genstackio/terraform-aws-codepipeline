@@ -1,5 +1,5 @@
 resource "aws_iam_role" "role" {
-  name               = "project-${var.env}-${var.name}-pipeline-role"
+  name               = "project-${var.name}-pipeline-role-${var.env}"
   assume_role_policy = data.aws_iam_policy_document.assume-role.json
 }
 
@@ -11,11 +11,11 @@ module "artifacts-policy" {
 }
 
 resource "aws_s3_bucket" "artifacts" {
-  bucket = "${var.env}-${var.name}-artifacts"
+  bucket = "${var.name}-artifacts-${var.env}"
 }
 
 resource "aws_codepipeline" "pipeline" {
-  name     = "${var.env}-${var.name}"
+  name     = "${var.name}-${var.env}"
   role_arn = aws_iam_role.role.arn
 
   artifact_store {
